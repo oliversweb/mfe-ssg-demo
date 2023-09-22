@@ -1,6 +1,13 @@
 import React from 'react'
 const UK_FOOTER_CONTENT_URL = 'https://mfe-component.s3.eu-west-1.amazonaws.com/uk-footer.json';
 
+const componentStyle = {
+  color: 'red',
+  lineHeight: 1,
+  padding: '1.5em',
+  fontWeight: "bold"
+}
+
 export const getData = async () => {
   let content = null; 
   try {      
@@ -20,20 +27,16 @@ export async function getStaticProps() {
 }
 
 export default function Footer({ footerContent }) {
-    console.log('FooterPage props', footerContent)
-
     const data = footerContent;
 
     if (!data) {
         return (
-          <React.Fragment>
-            <div>_______________ FOOTER FAILED _______________</div>
-          </React.Fragment>
+          <div style={ componentStyle }>_______________ FOOTER FAILED _______________</div>
         )
     }
 
     return (      
-      <React.Fragment>
+      <div style={ componentStyle }>
       _______________ FOOTER _______________
       {
         <ul>              
@@ -41,6 +44,6 @@ export default function Footer({ footerContent }) {
         </ul>        
       }
       ______________________________________
-    </React.Fragment>
+    </div>
     )
 }
