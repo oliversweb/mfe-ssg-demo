@@ -3,9 +3,6 @@ const NextFederationPlugin = require('@module-federation/nextjs-mf');
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-    // experimental: {
-    //     appDir: false,
-    // },
     webpack(config, options) {
         const { isServer } = options;
         config.plugins.push(
