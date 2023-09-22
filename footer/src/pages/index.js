@@ -1,14 +1,10 @@
 import React from 'react'
+import { createRoot } from 'react-dom/client';
+import Footer from '../components/footer'
+
 const UK_FOOTER_CONTENT_URL = 'https://mfe-component.s3.eu-west-1.amazonaws.com/uk-footer.json';
 
-const componentStyle = {
-  color: 'red',
-  lineHeight: 1,
-  padding: '1.5em',
-  fontWeight: "bold"
-}
-
-export const getData = async () => {
+const getData = async () => {
   let content = null; 
   try {      
     let res = await fetch(UK_FOOTER_CONTENT_URL);        
@@ -20,30 +16,35 @@ export const getData = async () => {
   return content;
 };
 
-export async function getStaticProps() {
-    const content = await getData();
-
-    return { props : { footerContent: content  }}
+export async function mount(el) {
+  const content = await getData(); 
+  const root = createRoot(el);
+  root.render(<Footer footerContent={ content } />);
 }
 
-export default function Footer({ footerContent }) {
-    const data = footerContent;
+export default function FooterLocal({ footerContent }) {  
+  const data = footerContent;
 
-    if (!data) {
-        return (
-          <div style={ componentStyle }>_______________ FOOTER FAILED _______________</div>
-        )
+  if (!data) {
+      return (
+        <div>_______________ FOOTER FAILED _______________</div>
+      )
+  }
+
+  return (      
+    <div>
+    _______________ FOOTER _______________
+    {
+      <ul>              
+          {data.sections.map(x => <li key={x.id}>[{x.name}]</li>)}
+      </ul>        
     }
-
-    return (      
-      <div style={ componentStyle }>
-      _______________ FOOTER _______________
-      {
-        <ul>              
-            {data.sections.map(x => <li key={x.id}>[{x.name}]</li>)}
-        </ul>        
-      }
-      ______________________________________
-    </div>
-    )
+    ______________________________________
+  </div>
+  )
 }
+
+// if (process.env.NODE_ENV === 'development') {
+//   const root = createRoot(<React.Fragment />);
+//   mount(root);
+// }

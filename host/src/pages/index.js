@@ -1,5 +1,5 @@
-import React from "react"
-import Footer from "footer/footerApp";
+import React from 'react';
+import FooterApp from '../components/FooterApp'
 
 const componentStyle = {
   color: 'blue',
@@ -8,24 +8,11 @@ const componentStyle = {
   fontWeight: "bold"
 }
 
-// Uncomment this to perform remote SSR/SSG hack
-
-// export async function getServerSideProps() {
-//   const footerPage = await import('footer/footerApp');
-
-//   const content = await footerPage.getStaticProps();
-
-//   return { props : { footerContent: content.props }}  
-// }
-
-export default function Host(props = {}) {
-  const { footerContent } = props;
-  
+export default () => {
   return (
     <>
-      <div style={ componentStyle }>_______________ HOST _______________</div>
-      
-      <Footer { ...footerContent } />
+      <div style={ componentStyle }>________________ HOST ________________</div>      
+      <FooterApp />
     </>
   )  
 }
